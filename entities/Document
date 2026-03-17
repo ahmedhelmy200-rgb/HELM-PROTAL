@@ -1,0 +1,28 @@
+{
+  "name": "Document",
+  "type": "object",
+  "properties": {
+    "title": {"type": "string", "description": "اسم المستند"},
+    "case_id": {"type": "string", "description": "معرف القضية"},
+    "case_title": {"type": "string", "description": "عنوان القضية"},
+    "case_number": {"type": "string", "description": "رقم القضية"},
+    "client_name": {"type": "string", "description": "اسم الموكل"},
+    "doc_type": {"type": "string", "enum": ["صحيفة دعوى","مذكرة","حكم","عقد","توكيل","شهادة","مستند رسمي","أخرى"], "default": "أخرى"},
+    "file_url": {"type": "string", "description": "رابط الملف"},
+    "file_name": {"type": "string", "description": "اسم الملف الأصلي"},
+    "file_type": {"type": "string", "description": "نوع الملف (pdf, image, etc)"},
+    "submission_deadline": {"type": "string", "format": "date-time", "description": "موعد التقديم"},
+    "status": {"type": "string", "enum": ["مسودة","جاهز","مقدم","مرفوض"], "default": "مسودة"},
+    "ocr_text": {"type": "string", "description": "النص المستخرج من المستند بتقنية OCR"},
+    "ocr_status": {"type": "string", "enum": ["لم يُعالج","جارٍ المعالجة","مكتمل","فشل"], "default": "لم يُعالج"},
+    "folder": {"type": "string", "description": "المجلد الافتراضي داخل القضية"},
+    "notes": {"type": "string", "description": "ملاحظات"}
+  },
+  "required": ["title","doc_type","status"],
+  "rls": {
+    "create": {"$or": [{"created_by": "{{user.email}}"},{"user_condition": {"role": "admin"}}]},
+    "read": {"$or": [{"created_by": "{{user.email}}"},{"user_condition": {"role": "admin"}}]},
+    "update": {"$or": [{"created_by": "{{user.email}}"},{"user_condition": {"role": "admin"}}]},
+    "delete": {"$or": [{"created_by": "{{user.email}}"},{"user_condition": {"role": "admin"}}]}
+  }
+}
