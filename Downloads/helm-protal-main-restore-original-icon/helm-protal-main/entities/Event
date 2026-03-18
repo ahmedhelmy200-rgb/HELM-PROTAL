@@ -1,0 +1,25 @@
+{
+  "name": "Event",
+  "type": "object",
+  "properties": {
+    "title": {"type": "string", "description": "Event title"},
+    "description": {"type": "string", "description": "Event description"},
+    "date": {"type": "string", "format": "date-time", "description": "Event date and time"},
+    "location": {"type": "string", "description": "Event location or virtual link"},
+    "event_type": {"type": "string", "enum": ["meetup","workshop","pitch_night","networking","conference","webinar","hackathon"], "description": "Type of event"},
+    "industry_focus": {"type": "string", "enum": ["fintech","healthtech","edtech","saas","ecommerce","ai_ml","cleantech","biotech","marketplace","social","gaming","hardware","logistics","proptech","legaltech","general","other"], "description": "Industry focus of the event"},
+    "max_attendees": {"type": "number", "description": "Maximum number of attendees"},
+    "attendees": {"type": "array", "items": {"type": "string"}, "description": "Email addresses of attendees"},
+    "organizer_email": {"type": "string", "description": "Email of the organizer"},
+    "organizer_name": {"type": "string", "description": "Name of the organizer"},
+    "image_url": {"type": "string", "description": "Event cover image URL"},
+    "is_virtual": {"type": "boolean", "description": "Whether the event is virtual"}
+  },
+  "required": ["title","date","location","event_type"],
+  "rls": {
+    "create": {"user_condition": {"$or": [{"role": "admin"},{"role": "user"}]}},
+    "read": {"user_condition": {"$or": [{"role": "admin"},{"role": "user"}]}},
+    "update": {"$or": [{"data.organizer_email": "{{user.email}}"},{"user_condition": {"role": "admin"}}]},
+    "delete": {"$or": [{"data.organizer_email": "{{user.email}}"},{"user_condition": {"role": "admin"}}]}
+  }
+}
