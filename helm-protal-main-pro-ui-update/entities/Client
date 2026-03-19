@@ -1,0 +1,22 @@
+{
+  "name": "Client",
+  "type": "object",
+  "properties": {
+    "full_name": {"type": "string", "description": "الاسم الكامل"},
+    "client_type": {"type": "string", "enum": ["فرد","شركة","مؤسسة"], "default": "فرد"},
+    "id_number": {"type": "string", "description": "رقم الهوية / السجل التجاري"},
+    "phone": {"type": "string", "description": "رقم الهاتف"},
+    "email": {"type": "string", "description": "البريد الإلكتروني"},
+    "address": {"type": "string", "description": "العنوان"},
+    "nationality": {"type": "string", "description": "الجنسية"},
+    "notes": {"type": "string", "description": "ملاحظات"},
+    "status": {"type": "string", "enum": ["نشط","غير نشط"], "default": "نشط"}
+  },
+  "required": ["full_name","phone"],
+  "rls": {
+    "create": {"user_condition": {"$or": [{"role": "admin"},{"role": "user"}]}},
+    "read": {"$or": [{"created_by": "{{user.email}}"},{"user_condition": {"role": "admin"}}]},
+    "update": {"$or": [{"created_by": "{{user.email}}"},{"user_condition": {"role": "admin"}}]},
+    "delete": {"$or": [{"created_by": "{{user.email}}"},{"user_condition": {"role": "admin"}}]}
+  }
+}
