@@ -1,0 +1,26 @@
+{
+  "name": "FounderProfile",
+  "type": "object",
+  "properties": {
+    "user_email": {"type": "string", "description": "Email of the user who owns this profile"},
+    "full_name": {"type": "string", "description": "Founder's full name"},
+    "photo_url": {"type": "string", "description": "Profile photo URL"},
+    "startup_name": {"type": "string", "description": "Name of the startup"},
+    "one_liner": {"type": "string", "description": "One-line description of the startup"},
+    "bio": {"type": "string", "description": "Personal bio"},
+    "industry": {"type": "string", "enum": ["fintech","healthtech","edtech","saas","ecommerce","ai_ml","cleantech","biotech","marketplace","social","gaming","hardware","logistics","proptech","legaltech","other"], "description": "Primary industry"},
+    "funding_stage": {"type": "string", "enum": ["idea","pre_seed","seed","series_a","series_b","bootstrapped"], "description": "Current funding stage"},
+    "location": {"type": "string", "description": "City or region"},
+    "linkedin_url": {"type": "string", "description": "LinkedIn profile URL"},
+    "twitter_url": {"type": "string", "description": "Twitter/X profile URL"},
+    "website_url": {"type": "string", "description": "Startup website URL"},
+    "looking_for": {"type": "array", "items": {"type": "string"}, "description": "What the founder is looking for (co-founder, mentor, investor, etc.)"}
+  },
+  "required": ["full_name","startup_name","industry","funding_stage","location"],
+  "rls": {
+    "create": {"$or": [{"data.user_email": "{{user.email}}"},{"user_condition": {"role": "admin"}}]},
+    "read": {"user_condition": {"$or": [{"role": "admin"},{"role": "user"}]}},
+    "update": {"$or": [{"data.user_email": "{{user.email}}"},{"user_condition": {"role": "admin"}}]},
+    "delete": {"$or": [{"data.user_email": "{{user.email}}"},{"user_condition": {"role": "admin"}}]}
+  }
+}

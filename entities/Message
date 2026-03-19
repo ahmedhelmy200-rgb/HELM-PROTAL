@@ -1,0 +1,17 @@
+{
+  "name": "Message",
+  "type": "object",
+  "properties": {
+    "conversation_id": {"type": "string", "description": "ID of the conversation"},
+    "sender_email": {"type": "string", "description": "Email of the sender"},
+    "sender_name": {"type": "string", "description": "Display name of the sender"},
+    "content": {"type": "string", "description": "Message content"}
+  },
+  "required": ["conversation_id","sender_email","content"],
+  "rls": {
+    "create": {"data.sender_email": "{{user.email}}"},
+    "read": {"$or": [{"data.sender_email": "{{user.email}}"},{"user_condition": {"role": "admin"}}]},
+    "update": {"$or": [{"data.sender_email": "{{user.email}}"},{"user_condition": {"role": "admin"}}]},
+    "delete": {"$or": [{"data.sender_email": "{{user.email}}"},{"user_condition": {"role": "admin"}}]}
+  }
+}
