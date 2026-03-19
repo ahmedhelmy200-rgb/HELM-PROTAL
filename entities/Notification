@@ -1,0 +1,21 @@
+{
+  "name": "Notification",
+  "type": "object",
+  "properties": {
+    "title": {"type": "string", "description": "عنوان التنبيه"},
+    "message": {"type": "string", "description": "نص التنبيه"},
+    "type": {"type": "string", "enum": ["جلسة","مهمة","مستند","عام"], "default": "عام"},
+    "reference_id": {"type": "string", "description": "معرف العنصر المرتبط"},
+    "reference_type": {"type": "string", "description": "نوع العنصر المرتبط"},
+    "is_read": {"type": "boolean", "default": false},
+    "due_date": {"type": "string", "format": "date-time", "description": "التاريخ المرتبط"},
+    "user_email": {"type": "string", "description": "المستخدم المعني"}
+  },
+  "required": ["title","message","type"],
+  "rls": {
+    "create": {"$or": [{"data.user_email": "{{user.email}}"},{"user_condition": {"role": "admin"}}]},
+    "read": {"$or": [{"data.user_email": "{{user.email}}"},{"user_condition": {"role": "admin"}}]},
+    "update": {"$or": [{"data.user_email": "{{user.email}}"},{"user_condition": {"role": "admin"}}]},
+    "delete": {"$or": [{"data.user_email": "{{user.email}}"},{"user_condition": {"role": "admin"}}]}
+  }
+}

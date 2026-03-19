@@ -1,0 +1,18 @@
+{
+  "name": "Conversation",
+  "type": "object",
+  "properties": {
+    "participants": {"type": "array", "items": {"type": "string"}, "description": "Email addresses of participants"},
+    "participant_names": {"type": "array", "items": {"type": "string"}, "description": "Display names of participants"},
+    "last_message": {"type": "string", "description": "Preview of the last message"},
+    "last_message_date": {"type": "string", "format": "date-time", "description": "When the last message was sent"},
+    "last_sender": {"type": "string", "description": "Email of the last message sender"}
+  },
+  "required": ["participants"],
+  "rls": {
+    "create": {"data.participants": {"$in": ["{{user.email}}"]}},
+    "read": {"$or": [{"data.participants": {"$in": ["{{user.email}}"]}},{"user_condition": {"role": "admin"}}]},
+    "update": {"$or": [{"data.participants": {"$in": ["{{user.email}}"]}},{"user_condition": {"role": "admin"}}]},
+    "delete": {"$or": [{"data.participants": {"$in": ["{{user.email}}"]}},{"user_condition": {"role": "admin"}}]}
+  }
+}

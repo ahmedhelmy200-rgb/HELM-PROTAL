@@ -1,0 +1,8 @@
+import React from "react";
+import { Badge } from "@/components/ui/badge";
+
+const industryLabels = { fintech: "Fintech", healthtech: "Healthtech", edtech: "Edtech", saas: "SaaS", ecommerce: "E-Commerce", ai_ml: "AI / ML", cleantech: "Cleantech", biotech: "Biotech", marketplace: "Marketplace", social: "Social", gaming: "Gaming", hardware: "Hardware", logistics: "Logistics", proptech: "Proptech", legaltech: "Legaltech", general: "General", other: "Other" };
+const industryColors = { fintech: "bg-chart-1/10 text-primary border-primary/20", healthtech: "bg-chart-4/10 text-chart-4 border-chart-4/20", edtech: "bg-chart-2/10 text-accent border-accent/20", saas: "bg-chart-5/10 text-chart-5 border-chart-5/20", ecommerce: "bg-chart-3/10 text-chart-3 border-chart-3/20", ai_ml: "bg-primary/10 text-primary border-primary/20", cleantech: "bg-accent/10 text-accent border-accent/20", biotech: "bg-chart-4/10 text-chart-4 border-chart-4/20", marketplace: "bg-chart-3/10 text-chart-3 border-chart-3/20", social: "bg-chart-5/10 text-chart-5 border-chart-5/20", gaming: "bg-chart-1/10 text-primary border-primary/20", hardware: "bg-muted text-muted-foreground border-border", logistics: "bg-chart-2/10 text-accent border-accent/20", proptech: "bg-chart-3/10 text-chart-3 border-chart-3/20", legaltech: "bg-muted text-muted-foreground border-border", general: "bg-muted text-muted-foreground border-border", other: "bg-muted text-muted-foreground border-border" };
+
+export default function IndustryBadge({ industry }) { return <Badge variant="outline" className={`${industryColors[industry] || industryColors.other} border font-medium text-xs`}>{industryLabels[industry] || industry}</Badge>; }
+export { industryLabels };
