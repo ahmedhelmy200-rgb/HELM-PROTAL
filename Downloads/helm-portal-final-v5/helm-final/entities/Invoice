@@ -1,0 +1,26 @@
+{
+  "name": "Invoice",
+  "type": "object",
+  "properties": {
+    "invoice_number": {"type": "string", "description": "رقم الفاتورة"},
+    "client_name": {"type": "string", "description": "اسم الموكل"},
+    "case_id": {"type": "string", "description": "معرف القضية"},
+    "case_title": {"type": "string", "description": "عنوان القضية"},
+    "case_number": {"type": "string", "description": "رقم القضية"},
+    "issue_date": {"type": "string", "format": "date", "description": "تاريخ الإصدار"},
+    "due_date": {"type": "string", "format": "date", "description": "تاريخ الاستحقاق"},
+    "total_fees": {"type": "number", "description": "إجمالي الأتعاب"},
+    "paid_amount": {"type": "number", "description": "المبلغ المدفوع", "default": 0},
+    "discount": {"type": "number", "description": "الخصم", "default": 0},
+    "vat_rate": {"type": "number", "description": "نسبة ضريبة القيمة المضافة", "default": 5},
+    "status": {"type": "string", "enum": ["مسودة","صادرة","مدفوعة جزئياً","مدفوعة","متأخرة","ملغاة"], "default": "مسودة"},
+    "items": {"type": "array", "items": {"type": "object", "properties": {"description": {"type": "string"}, "amount": {"type": "number"}}}, "description": "بنود الفاتورة"},
+    "notes": {"type": "string", "description": "ملاحظات"},
+    "payment_method": {"type": "string", "enum": ["نقداً","تحويل بنكي","شيك","بطاقة ائتمان"], "description": "طريقة الدفع"},
+    "office_name": {"type": "string", "description": "اسم المكتب"},
+    "office_phone": {"type": "string", "description": "هاتف المكتب"},
+    "office_address": {"type": "string", "description": "عنوان المكتب"}
+  },
+  "required": ["client_name","total_fees","issue_date","status"],
+  "rls": {}
+}
