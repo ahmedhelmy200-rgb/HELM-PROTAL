@@ -1,0 +1,19 @@
+{
+  "name": "ConnectionRequest",
+  "type": "object",
+  "properties": {
+    "from_email": {"type": "string", "description": "Email of the sender"},
+    "from_name": {"type": "string", "description": "Name of the sender"},
+    "to_email": {"type": "string", "description": "Email of the recipient"},
+    "to_name": {"type": "string", "description": "Name of the recipient"},
+    "status": {"type": "string", "enum": ["pending","accepted","declined"], "default": "pending", "description": "Status of the connection request"},
+    "message": {"type": "string", "description": "Optional message with the request"}
+  },
+  "required": ["from_email","to_email","status"],
+  "rls": {
+    "create": {"user_condition": {"$or": [{"role": "admin"},{"role": "user"}]}},
+    "read": {"$or": [{"data.from_email": "{{user.email}}"},{"data.to_email": "{{user.email}}"},{"user_condition": {"role": "admin"}}]},
+    "update": {"$or": [{"data.from_email": "{{user.email}}"},{"data.to_email": "{{user.email}}"},{"user_condition": {"role": "admin"}}]},
+    "delete": {"$or": [{"data.from_email": "{{user.email}}"},{"data.to_email": "{{user.email}}"},{"user_condition": {"role": "admin"}}]}
+  }
+}

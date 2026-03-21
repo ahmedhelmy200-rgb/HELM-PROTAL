@@ -1,0 +1,23 @@
+{
+  "name": "Task",
+  "type": "object",
+  "properties": {
+    "title": {"type": "string", "description": "عنوان المهمة"},
+    "description": {"type": "string", "description": "الوصف"},
+    "case_id": {"type": "string", "description": "معرف القضية (اختياري)"},
+    "case_title": {"type": "string", "description": "عنوان القضية"},
+    "client_name": {"type": "string", "description": "اسم الموكل"},
+    "task_type": {"type": "string", "enum": ["تقديم مستند","مراجعة عقد","رد على مذكرة","تحضير جلسة","متابعة موكل","مهمة عامة"], "default": "مهمة عامة"},
+    "priority": {"type": "string", "enum": ["عالية","متوسطة","منخفضة"], "default": "متوسطة"},
+    "due_date": {"type": "string", "format": "date-time", "description": "الموعد النهائي"},
+    "status": {"type": "string", "enum": ["معلقة","جارية","مكتملة"], "default": "معلقة"},
+    "assigned_to": {"type": "string", "description": "مسند إلى"}
+  },
+  "required": ["title","due_date","status"],
+  "rls": {
+    "create": {"$or": [{"created_by": "{{user.email}}"},{"user_condition": {"role": "admin"}}]},
+    "read": {"$or": [{"created_by": "{{user.email}}"},{"data.assigned_to": "{{user.email}}"},{"user_condition": {"role": "admin"}}]},
+    "update": {"$or": [{"created_by": "{{user.email}}"},{"data.assigned_to": "{{user.email}}"},{"user_condition": {"role": "admin"}}]},
+    "delete": {"$or": [{"created_by": "{{user.email}}"},{"user_condition": {"role": "admin"}}]}
+  }
+}
