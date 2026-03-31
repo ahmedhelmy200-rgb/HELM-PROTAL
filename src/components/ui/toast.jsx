@@ -1,0 +1,13 @@
+import * as React from "react";
+import { cva } from "class-variance-authority";
+import { X } from "lucide-react";
+import { cn } from "@/lib/utils";
+const ToastProvider = React.forwardRef(({ ...props }, ref) => <div ref={ref} className="fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]" {...props} />);
+const ToastViewport = React.forwardRef(({ ...props }, ref) => <div ref={ref} className="fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]" {...props} />);
+const toastVariants = cva("group pointer-events-auto relative flex w-full items-center justify-between space-x-4 overflow-hidden rounded-md border p-6 pr-8 shadow-lg transition-all", { variants: { variant: { default: "border bg-background text-foreground", destructive: "destructive group border-destructive bg-destructive text-destructive-foreground" } }, defaultVariants: { variant: "default" } });
+const Toast = React.forwardRef(({ className, variant, ...props }, ref) => <div ref={ref} className={cn(toastVariants({ variant }), className)} {...props} />);
+const ToastAction = React.forwardRef(({ className, ...props }, ref) => <div ref={ref} className={cn("inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3 text-sm font-medium", className)} {...props} />);
+const ToastClose = React.forwardRef(({ className, ...props }, ref) => <button ref={ref} className={cn("absolute right-2 top-2 rounded-md p-1 text-foreground/50 opacity-0 transition-opacity group-hover:opacity-100", className)} toast-close="" {...props}><X className="h-4 w-4" /></button>);
+const ToastTitle = React.forwardRef(({ className, ...props }, ref) => <div ref={ref} className={cn("text-sm font-semibold", className)} {...props} />);
+const ToastDescription = React.forwardRef(({ className, ...props }, ref) => <div ref={ref} className={cn("text-sm opacity-90", className)} {...props} />);
+export { ToastProvider, ToastViewport, Toast, ToastTitle, ToastDescription, ToastClose, ToastAction };
