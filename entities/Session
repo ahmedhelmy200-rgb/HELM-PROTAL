@@ -1,0 +1,26 @@
+{
+  "name": "Session",
+  "type": "object",
+  "properties": {
+    "case_id": {"type": "string", "description": "معرف القضية"},
+    "case_title": {"type": "string", "description": "عنوان القضية"},
+    "case_number": {"type": "string", "description": "رقم القضية"},
+    "client_name": {"type": "string", "description": "اسم الموكل"},
+    "session_date": {"type": "string", "format": "date-time", "description": "تاريخ الجلسة"},
+    "court": {"type": "string", "description": "المحكمة"},
+    "hall": {"type": "string", "description": "القاعة"},
+    "session_type": {"type": "string", "enum": ["مرافعة","إثبات","حكم","تأجيل","صلح","أخرى"], "default": "مرافعة"},
+    "status": {"type": "string", "enum": ["قادمة","منعقدة","مؤجلة","ملغية"], "default": "قادمة"},
+    "result": {"type": "string", "description": "نتيجة الجلسة"},
+    "next_session_date": {"type": "string", "format": "date-time", "description": "تاريخ الجلسة التالية"},
+    "notes": {"type": "string", "description": "ملاحظات"},
+    "reminder_sent": {"type": "boolean", "default": false}
+  },
+  "required": ["case_id","session_date","court"],
+  "rls": {
+    "create": {"user_condition": {"$or": [{"role": "admin"},{"role": "user"}]}},
+    "read": {"$or": [{"created_by": "{{user.email}}"},{"user_condition": {"role": "admin"}}]},
+    "update": {"$or": [{"created_by": "{{user.email}}"},{"user_condition": {"role": "admin"}}]},
+    "delete": {"$or": [{"created_by": "{{user.email}}"},{"user_condition": {"role": "admin"}}]}
+  }
+}
