@@ -1,0 +1,25 @@
+{
+  "name": "Case",
+  "type": "object",
+  "properties": {
+    "case_number": {"type": "string", "description": "رقم القضية"},
+    "title": {"type": "string", "description": "عنوان القضية"},
+    "client_id": {"type": "string", "description": "معرف الموكل"},
+    "client_name": {"type": "string", "description": "اسم الموكل"},
+    "case_type": {"type": "string", "enum": ["مدني","جزائي","تجاري","عمالي","أسري","إداري","عقاري","أخرى"], "description": "نوع القضية"},
+    "court": {"type": "string", "description": "المحكمة"},
+    "judge": {"type": "string", "description": "القاضي"},
+    "status": {"type": "string", "enum": ["جارية","متوقفة","مكتملة","مغلقة"], "default": "جارية", "description": "حالة القضية"},
+    "priority": {"type": "string", "enum": ["عالية","متوسطة","منخفضة"], "default": "متوسطة"},
+    "next_session_date": {"type": "string", "format": "date-time", "description": "تاريخ الجلسة القادمة"},
+    "filing_date": {"type": "string", "format": "date", "description": "تاريخ الرفع"},
+    "description": {"type": "string", "description": "وصف القضية"},
+    "fees": {"type": "number", "description": "الأتعاب المتفق عليها"},
+    "paid_amount": {"type": "number", "description": "المبلغ المدفوع", "default": 0},
+    "assigned_lawyer": {"type": "string", "description": "المحامي المسؤول"},
+    "opponent_name": {"type": "string", "description": "اسم الخصم"},
+    "opponent_lawyer": {"type": "string", "description": "محامي الخصم"}
+  },
+  "required": ["title","client_name","case_type","status"],
+  "rls": {}
+}
