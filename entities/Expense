@@ -1,0 +1,25 @@
+{
+  "name": "Expense",
+  "type": "object",
+  "properties": {
+    "title": {"type": "string", "description": "وصف المصروف"},
+    "amount": {"type": "number", "description": "المبلغ"},
+    "category": {"type": "string", "enum": ["رسوم قضائية","مواصلات","طباعة ومستلزمات","رسوم تسجيل","أتعاب خبراء","إيجار","رواتب","اتصالات","أخرى"], "default": "أخرى"},
+    "expense_date": {"type": "string", "format": "date", "description": "تاريخ المصروف"},
+    "case_id": {"type": "string", "description": "معرف القضية"},
+    "case_title": {"type": "string", "description": "عنوان القضية"},
+    "client_name": {"type": "string", "description": "اسم الموكل"},
+    "payment_method": {"type": "string", "enum": ["نقداً","تحويل بنكي","شيك","بطاقة ائتمان"], "default": "نقداً"},
+    "receipt_url": {"type": "string", "description": "صورة الإيصال"},
+    "notes": {"type": "string", "description": "ملاحظات"},
+    "is_billable": {"type": "boolean", "default": false, "description": "قابل للفوترة للموكل"},
+    "status": {"type": "string", "enum": ["مدفوع","معلق","ملغى"], "default": "مدفوع"}
+  },
+  "required": ["title","amount","expense_date"],
+  "rls": {
+    "create": {"user_condition": {"$or": [{"role": "admin"},{"role": "user"}]}},
+    "read": {"$or": [{"created_by": "{{user.email}}"},{"user_condition": {"role": "admin"}}]},
+    "update": {"$or": [{"created_by": "{{user.email}}"},{"user_condition": {"role": "admin"}}]},
+    "delete": {"$or": [{"created_by": "{{user.email}}"},{"user_condition": {"role": "admin"}}]}
+  }
+}

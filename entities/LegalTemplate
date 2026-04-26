@@ -1,0 +1,21 @@
+{
+  "name": "LegalTemplate",
+  "type": "object",
+  "properties": {
+    "title": {"type": "string", "description": "عنوان النموذج"},
+    "category": {"type": "string", "enum": ["عقود","صحائف دعوى","مذكرات","توكيلات","مراسلات","إشعارات","اتفاقيات","أخرى"], "description": "تصنيف النموذج"},
+    "case_type": {"type": "string", "enum": ["مدني","جزائي","تجاري","عمالي","أسري","إداري","عقاري","عام"], "description": "نوع القضية المناسبة"},
+    "content": {"type": "string", "description": "محتوى النموذج"},
+    "description": {"type": "string", "description": "وصف النموذج"},
+    "variables": {"type": "array", "items": {"type": "string"}, "description": "المتغيرات القابلة للتعديل مثل [اسم الموكل]"},
+    "is_favorite": {"type": "boolean", "default": false},
+    "usage_count": {"type": "number", "default": 0}
+  },
+  "required": ["title","category","content"],
+  "rls": {
+    "create": {"user_condition": {"role": "admin"}},
+    "read": {"user_condition": {"$or": [{"role": "admin"},{"role": "user"}]}},
+    "update": {"$or": [{"created_by": "{{user.email}}"},{"user_condition": {"role": "admin"}}]},
+    "delete": {"$or": [{"created_by": "{{user.email}}"},{"user_condition": {"role": "admin"}}]}
+  }
+}
