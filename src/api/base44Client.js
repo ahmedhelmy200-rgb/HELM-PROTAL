@@ -1,12 +1,12 @@
-import { supabase } from '@/integrations/supabase/client'
+﻿import { supabase } from '@/integrations/supabase/client'
 import { appParams } from '@/lib/app-params'
 import { emitAppEvent } from '@/lib/app-events'
 
 const actorCache = { value: null, at: 0 }
 const queryCache = new Map()
 const ACTOR_TTL = 10_000
-const QUERY_TTL = 5000        // 5 ثوانٍ للبيانات العادية
-const SETTINGS_TTL = 30000   // 30 ثانية للإعدادات
+const QUERY_TTL = 5000        // 5 Ø«ÙˆØ§Ù†Ù Ù„Ù„Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ø¹Ø§Ø¯ÙŠØ©
+const SETTINGS_TTL = 30000   // 30 Ø«Ø§Ù†ÙŠØ© Ù„Ù„Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª
 const PENDING_CLIENT_ROLE = 'pending_client'
 const MAX_UPLOAD_SIZE_BYTES = 15 * 1024 * 1024
 const ALLOWED_UPLOAD_TYPES = [
@@ -51,18 +51,18 @@ function parseSort(sortArg) {
 }
 
 function friendlyError(error) {
-  if (!error) return new Error('حدث خطأ غير معروف.')
+  if (!error) return new Error('Ø­Ø¯Ø« Ø®Ø·Ø£ ØºÙŠØ± Ù…Ø¹Ø±ÙˆÙ.')
   const message = String(error.message || error || '')
   if (message.includes('Failed to fetch') || message.includes('NetworkError')) {
-    return new Error('تعذر الاتصال بالخادم. تحقق من الإنترنت ثم أعد المحاولة.')
+    return new Error('ØªØ¹Ø°Ø± Ø§Ù„Ø§ØªØµØ§Ù„ Ø¨Ø§Ù„Ø®Ø§Ø¯Ù…. ØªØ­Ù‚Ù‚ Ù…Ù† Ø§Ù„Ø¥Ù†ØªØ±Ù†Øª Ø«Ù… Ø£Ø¹Ø¯ Ø§Ù„Ù…Ø­Ø§ÙˆÙ„Ø©.')
   }
   if (message.includes('Auth session missing') || message.includes('JWT')) {
-    return new Error('انتهت جلسة الدخول. أعد تسجيل الدخول.')
+    return new Error('Ø§Ù†ØªÙ‡Øª Ø¬Ù„Ø³Ø© Ø§Ù„Ø¯Ø®ÙˆÙ„. Ø£Ø¹Ø¯ ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„.')
   }
   if (message.includes('Bucket not found')) {
-    return new Error('حاوية التخزين غير موجودة في Supabase. أنشئ bucket باسم uploads أولاً.')
+    return new Error('Ø­Ø§ÙˆÙŠØ© Ø§Ù„ØªØ®Ø²ÙŠÙ† ØºÙŠØ± Ù…ÙˆØ¬ÙˆØ¯Ø© ÙÙŠ Supabase. Ø£Ù†Ø´Ø¦ bucket Ø¨Ø§Ø³Ù… uploads Ø£ÙˆÙ„Ø§Ù‹.')
   }
-  return error instanceof Error ? error : new Error(message || 'حدث خطأ أثناء معالجة الطلب.')
+  return error instanceof Error ? error : new Error(message || 'Ø­Ø¯Ø« Ø®Ø·Ø£ Ø£Ø«Ù†Ø§Ø¡ Ù…Ø¹Ø§Ù„Ø¬Ø© Ø§Ù„Ø·Ù„Ø¨.')
 }
 
 async function safeRequest(work) {
@@ -74,13 +74,13 @@ async function safeRequest(work) {
 }
 
 function validateUploadFile(file) {
-  if (!file) throw new Error('لم يتم اختيار ملف.')
-  if (file.size > MAX_UPLOAD_SIZE_BYTES) throw new Error('حجم الملف أكبر من 15 ميجابايت، وهذا غير مسموح حاليًا.')
+  if (!file) throw new Error('Ù„Ù… ÙŠØªÙ… Ø§Ø®ØªÙŠØ§Ø± Ù…Ù„Ù.')
+  if (file.size > MAX_UPLOAD_SIZE_BYTES) throw new Error('Ø­Ø¬Ù… Ø§Ù„Ù…Ù„Ù Ø£ÙƒØ¨Ø± Ù…Ù† 15 Ù…ÙŠØ¬Ø§Ø¨Ø§ÙŠØªØŒ ÙˆÙ‡Ø°Ø§ ØºÙŠØ± Ù…Ø³Ù…ÙˆØ­ Ø­Ø§Ù„ÙŠÙ‹Ø§.')
   const type = String(file.type || '').toLowerCase()
   const name = String(file.name || '').toLowerCase()
   const allowedByExtension = /\.(pdf|doc|docx|xls|xlsx|ppt|pptx|jpg|jpeg|png|webp|txt)$/i.test(name)
   if (type && !ALLOWED_UPLOAD_TYPES.includes(type) && !allowedByExtension) {
-    throw new Error('نوع الملف غير مدعوم. المسموح: PDF وWord وExcel وPowerPoint والصور والنصوص.')
+    throw new Error('Ù†ÙˆØ¹ Ø§Ù„Ù…Ù„Ù ØºÙŠØ± Ù…Ø¯Ø¹ÙˆÙ…. Ø§Ù„Ù…Ø³Ù…ÙˆØ­: PDF ÙˆWord ÙˆExcel ÙˆPowerPoint ÙˆØ§Ù„ØµÙˆØ± ÙˆØ§Ù„Ù†ØµÙˆØµ.')
   }
 }
 
@@ -190,14 +190,18 @@ function cacheKey(table, mode, criteria, sortArg, limitValue, actor) {
 
 function getCached(key) {
   if (!QUERY_TTL) return null
-  const ttl = table === 'office_settings' ? SETTINGS_TTL : QUERY_TTL
   const item = queryCache.get(key)
   if (!item) return null
-  const activeTtl = key.includes('office_settings') ? SETTINGS_TTL : QUERY_TTL
+
+  const activeTtl = key.includes('"table":"office_settings"')
+    ? SETTINGS_TTL
+    : QUERY_TTL
+
   if (Date.now() - item.at > activeTtl) {
     queryCache.delete(key)
     return null
   }
+
   return item.value
 }
 
@@ -262,12 +266,12 @@ function applyActorRestrictions(query, entityName, actor) {
 
 async function sanitizeWritePayload(entityName, payload, actor) {
   if (actor.role === PENDING_CLIENT_ROLE) {
-    throw new Error('أكمل تسجيلك كموكّل أولاً قبل استخدام النظام.')
+    throw new Error('Ø£ÙƒÙ…Ù„ ØªØ³Ø¬ÙŠÙ„Ùƒ ÙƒÙ…ÙˆÙƒÙ‘Ù„ Ø£ÙˆÙ„Ø§Ù‹ Ù‚Ø¨Ù„ Ø§Ø³ØªØ®Ø¯Ø§Ù… Ø§Ù„Ù†Ø¸Ø§Ù….')
   }
   if (actor.role !== 'client') return payload
 
   if (!['Document', 'Notification', 'ConnectionRequest'].includes(entityName)) {
-    throw new Error('هذا الإجراء غير متاح في بوابة الموكّل.')
+    throw new Error('Ù‡Ø°Ø§ Ø§Ù„Ø¥Ø¬Ø±Ø§Ø¡ ØºÙŠØ± Ù…ØªØ§Ø­ ÙÙŠ Ø¨ÙˆØ§Ø¨Ø© Ø§Ù„Ù…ÙˆÙƒÙ‘Ù„.')
   }
 
   if (entityName === 'Document') {
@@ -275,7 +279,7 @@ async function sanitizeWritePayload(entityName, payload, actor) {
       ...payload,
       client_name: actor.client?.full_name || payload.client_name,
       created_by: actor.email,
-      status: payload.status || 'مسودة',
+      status: payload.status || 'Ù…Ø³ÙˆØ¯Ø©',
     }
   }
 
@@ -419,7 +423,7 @@ function createEntity(entityName) {
     async update(id, payload) {
       return safeRequest(async () => {
         const actor = await currentActor()
-        if ((actor.role === PENDING_CLIENT_ROLE) || (actor.role === 'client' && entityName !== 'Document')) throw new Error('هذا الإجراء غير متاح في بوابة الموكّل.')
+        if ((actor.role === PENDING_CLIENT_ROLE) || (actor.role === 'client' && entityName !== 'Document')) throw new Error('Ù‡Ø°Ø§ Ø§Ù„Ø¥Ø¬Ø±Ø§Ø¡ ØºÙŠØ± Ù…ØªØ§Ø­ ÙÙŠ Ø¨ÙˆØ§Ø¨Ø© Ø§Ù„Ù…ÙˆÙƒÙ‘Ù„.')
         const safePayload = stripVirtualFields(actor.role === 'client'
           ? { ...payload, client_name: actor.client?.full_name || payload.client_name }
           : payload)
@@ -469,7 +473,7 @@ function createEntity(entityName) {
     async delete(id) {
       return safeRequest(async () => {
         const actor = await currentActor()
-        if ((actor.role === PENDING_CLIENT_ROLE) || (actor.role === 'client' && entityName !== 'Document')) throw new Error('هذا الإجراء غير متاح في بوابة الموكّل.')
+        if ((actor.role === PENDING_CLIENT_ROLE) || (actor.role === 'client' && entityName !== 'Document')) throw new Error('Ù‡Ø°Ø§ Ø§Ù„Ø¥Ø¬Ø±Ø§Ø¡ ØºÙŠØ± Ù…ØªØ§Ø­ ÙÙŠ Ø¨ÙˆØ§Ø¨Ø© Ø§Ù„Ù…ÙˆÙƒÙ‘Ù„.')
         const { error } = await supabase.from(table).delete().eq('id', id)
         if (error) throw error
         clearEntityCache(table)
@@ -522,26 +526,26 @@ const auth = {
   async registerClientProfile(payload = {}, attachments = []) {
     return safeRequest(async () => {
       const actor = await currentActor()
-      if (!actor?.email) throw new Error('يجب تسجيل الدخول أولاً.')
-      if (actor.role !== PENDING_CLIENT_ROLE && actor.role !== 'client') throw new Error('هذا الإجراء مخصص لبوابة الموكّل فقط.')
+      if (!actor?.email) throw new Error('ÙŠØ¬Ø¨ ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„ Ø£ÙˆÙ„Ø§Ù‹.')
+      if (actor.role !== PENDING_CLIENT_ROLE && actor.role !== 'client') throw new Error('Ù‡Ø°Ø§ Ø§Ù„Ø¥Ø¬Ø±Ø§Ø¡ Ù…Ø®ØµØµ Ù„Ø¨ÙˆØ§Ø¨Ø© Ø§Ù„Ù…ÙˆÙƒÙ‘Ù„ ÙÙ‚Ø·.')
 
       const normalizedEmail = String(actor.email).trim().toLowerCase()
       const cleanPayload = {
         full_name: payload.full_name,
-        client_type: payload.client_type || 'فرد',
+        client_type: payload.client_type || 'ÙØ±Ø¯',
         id_number: payload.id_number || null,
         phone: payload.phone,
         email: normalizedEmail,
         address: payload.address || null,
         nationality: payload.nationality || null,
         notes: payload.notes || null,
-        status: payload.status || 'قيد المراجعة',
+        status: payload.status || 'Ù‚ÙŠØ¯ Ø§Ù„Ù…Ø±Ø§Ø¬Ø¹Ø©',
         created_by: normalizedEmail,
         updated_date: new Date().toISOString(),
       }
 
       if (!cleanPayload.full_name || !cleanPayload.phone) {
-        throw new Error('الاسم الكامل ورقم الهاتف مطلوبان.')
+        throw new Error('Ø§Ù„Ø§Ø³Ù… Ø§Ù„ÙƒØ§Ù…Ù„ ÙˆØ±Ù‚Ù… Ø§Ù„Ù‡Ø§ØªÙ Ù…Ø·Ù„ÙˆØ¨Ø§Ù†.')
       }
 
       const { data: existingRows, error: existingError } = await supabase
@@ -576,15 +580,15 @@ const auth = {
         if (!file) continue
         const upload = await integrations.Core.UploadFile({ file, folder: `client-intake/${normalizedEmail}` })
         const docPayload = {
-          title: `مرفق تسجيل موكّل - ${file.name}`,
+          title: `Ù…Ø±ÙÙ‚ ØªØ³Ø¬ÙŠÙ„ Ù…ÙˆÙƒÙ‘Ù„ - ${file.name}`,
           client_name: clientRecord.full_name,
-          doc_type: 'مستند رسمي',
+          doc_type: 'Ù…Ø³ØªÙ†Ø¯ Ø±Ø³Ù…ÙŠ',
           file_url: upload.storage_ref || upload.file_url,
           file_name: file.name,
           file_type: file.type || null,
-          status: 'مقدم',
-          folder: 'مستندات التسجيل',
-          notes: 'مرفق مرفوع من بوابة تسجيل الموكّل',
+          status: 'Ù…Ù‚Ø¯Ù…',
+          folder: 'Ù…Ø³ØªÙ†Ø¯Ø§Øª Ø§Ù„ØªØ³Ø¬ÙŠÙ„',
+          notes: 'Ù…Ø±ÙÙ‚ Ù…Ø±ÙÙˆØ¹ Ù…Ù† Ø¨ÙˆØ§Ø¨Ø© ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ù…ÙˆÙƒÙ‘Ù„',
           created_by: normalizedEmail,
         }
         const { data, error } = await supabase.from('documents').insert(docPayload).select().single()
@@ -613,7 +617,7 @@ const integrations = {
           contentType: file.type || undefined,
         }
 
-        // ── محاولة الإنشاء التلقائي للـ bucket إذا لم يكن موجوداً ──────────
+        // â”€â”€ Ù…Ø­Ø§ÙˆÙ„Ø© Ø§Ù„Ø¥Ù†Ø´Ø§Ø¡ Ø§Ù„ØªÙ„Ù‚Ø§Ø¦ÙŠ Ù„Ù„Ù€ bucket Ø¥Ø°Ø§ Ù„Ù… ÙŠÙƒÙ† Ù…ÙˆØ¬ÙˆØ¯Ø§Ù‹ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         const ensureBucket = async (bucketName) => {
           const { data: existing } = await supabase.storage.getBucket(bucketName)
           if (existing) return true
@@ -632,11 +636,11 @@ const integrations = {
             ],
           })
           if (createErr) {
-            // قد تكون صلاحيات المستخدم لا تسمح بإنشاء bucket — نستمر ونرى
+            // Ù‚Ø¯ ØªÙƒÙˆÙ† ØµÙ„Ø§Ø­ÙŠØ§Øª Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù… Ù„Ø§ ØªØ³Ù…Ø­ Ø¨Ø¥Ù†Ø´Ø§Ø¡ bucket â€” Ù†Ø³ØªÙ…Ø± ÙˆÙ†Ø±Ù‰
             console.warn('Could not auto-create bucket:', createErr.message)
             return false
           }
-          // إضافة سياسات RLS للـ bucket الجديد
+          // Ø¥Ø¶Ø§ÙØ© Ø³ÙŠØ§Ø³Ø§Øª RLS Ù„Ù„Ù€ bucket Ø§Ù„Ø¬Ø¯ÙŠØ¯
           await supabase.rpc('create_storage_policy', { bucket_name: bucketName }).catch(() => {})
           return true
         }
@@ -654,14 +658,14 @@ const integrations = {
         }
 
         if (error) {
-          // رسالة خطأ أوضح مع إرشاد للحل
+          // Ø±Ø³Ø§Ù„Ø© Ø®Ø·Ø£ Ø£ÙˆØ¶Ø­ Ù…Ø¹ Ø¥Ø±Ø´Ø§Ø¯ Ù„Ù„Ø­Ù„
           if (error.message?.includes('Bucket not found') || error.message?.includes('bucket')) {
             throw new Error(
-              `لم يتم العثور على حاوية التخزين "${bucket}".\n` +
-              `يرجى الذهاب إلى إعدادات النظام ← إعداد Supabase وإنشاء الحاوية من هناك.`
+              `Ù„Ù… ÙŠØªÙ… Ø§Ù„Ø¹Ø«ÙˆØ± Ø¹Ù„Ù‰ Ø­Ø§ÙˆÙŠØ© Ø§Ù„ØªØ®Ø²ÙŠÙ† "${bucket}".\n` +
+              `ÙŠØ±Ø¬Ù‰ Ø§Ù„Ø°Ù‡Ø§Ø¨ Ø¥Ù„Ù‰ Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ù†Ø¸Ø§Ù… â† Ø¥Ø¹Ø¯Ø§Ø¯ Supabase ÙˆØ¥Ù†Ø´Ø§Ø¡ Ø§Ù„Ø­Ø§ÙˆÙŠØ© Ù…Ù† Ù‡Ù†Ø§Ùƒ.`
             )
           }
-          throw new Error(error.message || 'تعذر رفع الملف إلى التخزين.')
+          throw new Error(error.message || 'ØªØ¹Ø°Ø± Ø±ÙØ¹ Ø§Ù„Ù…Ù„Ù Ø¥Ù„Ù‰ Ø§Ù„ØªØ®Ø²ÙŠÙ†.')
         }
 
         const storage_ref = buildStorageRef(bucket, finalPath)
@@ -731,3 +735,4 @@ export const base44 = {
   realtime: { subscribe: subscribeRealtime },
   __clearCache: () => clearEntityCache(),
 }
+
