@@ -10,6 +10,7 @@ const Events = lazy(() => import('./pages/Events'));
 const FounderDetail = lazy(() => import('./pages/FounderDetail'));
 const Invoices = lazy(() => import('./pages/Invoices'));
 const LegalTemplates = lazy(() => import('./pages/LegalTemplates'));
+const LegalWebsites = lazy(() => import('./pages/LegalWebsites'));
 const Messages = lazy(() => import('./pages/Messages'));
 const Network = lazy(() => import('./pages/Network'));
 const Notifications = lazy(() => import('./pages/Notifications'));
@@ -40,6 +41,7 @@ export const PAGES = {
   FounderDetail,
   Invoices,
   LegalTemplates,
+  LegalWebsites,
   Messages,
   Network,
   Notifications,
