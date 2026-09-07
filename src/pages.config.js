@@ -25,7 +25,7 @@ const Reports = lazy(() => import('./pages/Reports'));
 const Communications = lazy(() => import('./pages/Communications'));
 const Archive = lazy(() => import('./pages/Archive'));
 const Payment = lazy(() => import('./pages/Payment'));
-const HelmSmart = lazy(() => import('./pages/HelmSmart'));
+const HelmSmart = lazy(() => import('./pages/HelmSmartEnhanced'));
 const UserActivity = lazy(() => import('./pages/UserActivity'));
 const SocialPublisher = lazy(() => import('./pages/SocialPublisher'));
 const __Layout = lazy(() => import('./Layout.jsx'));
