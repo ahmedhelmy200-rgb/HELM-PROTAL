@@ -53,6 +53,13 @@ function smartTime(value) {
   return match?.[1] || '09:00'
 }
 
+function smartPriority(value, fallback = 'normal') {
+  const s = String(value || '').trim().toLowerCase()
+  if (['high', 'urgent', 'عالي', 'عاجل', 'مرتفع'].some((v) => s.includes(v))) return 'high'
+  if (['low', 'منخفض', 'ضعيف'].some((v) => s.includes(v))) return 'low'
+  return fallback
+}
+
 function stableId(prefix, row, fallback = '') {
   return String(row?.id || row?.email || row?.phone || row?.case_number || row?.invoice_number || row?.bank_reference || `${prefix}-${fallback}`)
 }
@@ -186,7 +193,7 @@ function mapTask(row) {
     title: row?.title || 'تذكير',
     dueDate: smartDate(row?.due_date || row?.created_date),
     dueTime: row?.due_time || smartTime(row?.due_date),
-    priority: row?.priority || 'متوسط',
+    priority: smartPriority(row?.priority),
     done: row?.status === 'مكتملة',
     note: row?.description || row?.notes || row?.case_title || '',
     source: { type: 'manual' },
@@ -194,15 +201,16 @@ function mapTask(row) {
 }
 
 function mapSession(row) {
+  const caseId = row?.case_id ? String(row.case_id) : ''
   return {
     id: `session-${stableId('session', row, row?.case_number || '')}`,
     title: `جلسة${row?.case_number ? ` — ${row.case_number}` : ''}${row?.case_title ? ` — ${row.case_title}` : ''}`,
     dueDate: smartDate(row?.session_date || row?.date || row?.created_date),
     dueTime: smartTime(row?.session_date || row?.date),
-    priority: row?.status === 'قادمة' ? 'عالي' : 'متوسط',
+    priority: row?.status === 'قادمة' ? 'high' : 'normal',
     done: !['قادمة', 'مؤجلة'].includes(String(row?.status || '')),
     note: [row?.court, row?.client_name, row?.result, row?.notes].filter(Boolean).join(' — '),
-    source: { type: 'case', caseId: row?.case_id || undefined },
+    source: caseId ? { type: 'case_hearing', caseId } : { type: 'manual' },
   }
 }
 
@@ -212,7 +220,7 @@ function mapFutureDebt(row) {
     title: `استحقاق مالي${row?.client_name ? ` — ${row.client_name}` : ''}`,
     dueDate: smartDate(row?.due_date || row?.date || row?.created_date),
     dueTime: '09:00',
-    priority: 'عالي',
+    priority: 'high',
     done: Boolean(row?.is_paid || row?.status === 'مدفوع'),
     note: [`المبلغ: ${asMoney(row?.amount)} د.إ`, row?.description, row?.notes].filter(Boolean).join(' — '),
     source: { type: 'manual' },
@@ -281,13 +289,42 @@ function buildConfig(settings) {
   }
 }
 
+function canonicalRow(row) {
+  if (!row || typeof row !== 'object') return JSON.stringify(row)
+  return Object.keys(row)
+    .sort()
+    .map((key) => `${key}:${JSON.stringify(row[key])}`)
+    .join('|')
+}
+
+function hashText(text, seed = 2166136261) {
+  let hash = seed >>> 0
+  for (let i = 0; i < text.length; i += 1) {
+    hash ^= text.charCodeAt(i)
+    hash = Math.imul(hash, 16777619) >>> 0
+  }
+  return hash >>> 0
+}
+
+function fingerprintMirror(mirror) {
+  let hash = 2166136261
+  const keys = Object.keys(mirror).filter((key) => Array.isArray(mirror[key])).sort()
+  keys.forEach((key) => {
+    const rows = mirror[key] || []
+    hash = hashText(`${key}:${rows.length}`, hash)
+    const signatures = rows.map(canonicalRow).sort()
+    signatures.forEach((signature) => { hash = hashText(signature, hash) })
+  })
+  return `portal-${(hash >>> 0).toString(16).padStart(8, '0')}`
+}
+
 export async function collectFullPortalMirror(base44) {
   const entityResults = await Promise.all(ENTITY_PLAN.map(async ([entityName, key]) => [key, await safeEntityList(base44, entityName)]))
   const tableResults = await Promise.all(DIRECT_TABLES.map(async (table) => [table, await safeTableList(table)]))
   const mirror = Object.fromEntries([...entityResults, ...tableResults])
   mirror.exported_at = new Date().toISOString()
   mirror.source = 'helm-portal'
-  mirror.schema_version = 2
+  mirror.schema_version = 3
   mirror.counts = Object.fromEntries(Object.entries(mirror).filter(([, value]) => Array.isArray(value)).map(([key, value]) => [key, value.length]))
   return mirror
 }
@@ -325,10 +362,13 @@ export async function buildCompleteHelmSmartPayload(base44) {
   }))
 
   const totalRawRecords = Object.values(mirror.counts || {}).reduce((sum, value) => sum + Number(value || 0), 0)
+  const fingerprint = fingerprintMirror(mirror)
+  mirror.fingerprint = fingerprint
+
   return {
     source: 'helm-portal',
     syncedAt: new Date().toISOString(),
-    syncVersion: 'full-portal-mirror-v2',
+    syncVersion: 'full-portal-mirror-v3',
     config: buildConfig(settings),
     clients,
     cases: smartCases,
@@ -340,6 +380,7 @@ export async function buildCompleteHelmSmartPayload(base44) {
     notes,
     portalMirror: mirror,
     syncMeta: {
+      fingerprint,
       totalRawRecords,
       counts: mirror.counts,
       mapped: {
