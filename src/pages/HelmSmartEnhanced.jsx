@@ -14,6 +14,36 @@ function getSmartFrame() {
   return document.querySelector(`iframe[title="${FRAME_TITLE}"]`)
 }
 
+function normalizePriority(value) {
+  const raw = String(value || '').toLowerCase()
+  if (raw === 'high' || raw.includes('عال')) return 'high'
+  if (raw === 'low' || raw.includes('منخفض')) return 'low'
+  return 'normal'
+}
+
+function normalizeFullPayload(payload) {
+  const now = new Date().toISOString()
+  const clients = (payload.clients || []).map((client) => {
+    if (client?.category !== 'other') return client
+    const id = String(client.id || client.email || client.phone || client.name || 'other')
+    return { ...client, id: id.startsWith('contact-') ? id : `contact-${id}` }
+  })
+
+  const reminders = (payload.reminders || []).map((item) => {
+    let source = item?.source || { type: 'manual' }
+    if (source.type === 'case') source = { type: 'case_hearing', caseId: source.caseId || '' }
+    if (!['manual', 'case_hearing', 'doc_review'].includes(source.type)) source = { type: 'manual' }
+    return {
+      ...item,
+      priority: normalizePriority(item?.priority),
+      createdAt: item?.createdAt || now,
+      source,
+    }
+  })
+
+  return { ...payload, clients, reminders }
+}
+
 export default function HelmSmartEnhanced() {
   const { user } = useAuth()
   const runningRef = useRef(false)
@@ -30,7 +60,7 @@ export default function HelmSmartEnhanced() {
 
     runningRef.current = true
     try {
-      const payload = await buildCompleteHelmSmartPayload(base44)
+      const payload = normalizeFullPayload(await buildCompleteHelmSmartPayload(base44))
       frame.contentWindow.postMessage({ type: SYNC_MESSAGE_TYPE, payload }, '*')
       lastSentAtRef.current = Date.now()
       window.dispatchEvent(new CustomEvent('helm-smart-full-sync-sent', {
