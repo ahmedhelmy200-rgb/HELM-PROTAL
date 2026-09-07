@@ -10,7 +10,7 @@ import {
   LayoutDashboard, Briefcase, Users, CalendarDays, FileText, CheckSquare,
   Bell, Menu, X, LogOut, Receipt, BookOpen, Settings, Wallet, BarChart2, MessageCircle,
   Archive, Search as SearchIcon, MoonStar, SunMedium, Volume2, VolumeX, Zap,
-  Landmark, ArrowRight, MonitorCog, BrainCircuit, Megaphone
+  Landmark, ArrowRight, MonitorCog, BrainCircuit, Megaphone, Globe2
 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -33,6 +33,7 @@ const staffNavItems = [
   { label: "مركز التواصل", page: "Communications", icon: MessageCircle, fx: "nav-fx-breathe" },
   { label: "مركز النشر", page: "SocialPublisher", icon: Megaphone, fx: "nav-fx-pulse" },
   { label: "التقارير", page: "Reports", icon: BarChart2, fx: "nav-fx-pulse" },
+  { label: "المواقع الإلكترونية", page: "LegalWebsites", icon: Globe2, fx: "nav-fx-float" },
   { label: "حُلم سمارت", page: "HelmSmart", icon: BrainCircuit, fx: "nav-fx-spark" },
   { label: "الأرشيف", page: "Archive", icon: Archive, fx: "nav-fx-tilt" },
   { label: "الإعدادات", page: "Settings", icon: Settings, fx: "nav-fx-spin-soft" },
