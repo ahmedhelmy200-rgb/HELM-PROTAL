@@ -18,6 +18,7 @@ import AppStatusBar from '@/components/app/AppStatusBar'
 import KeyboardShortcutsModal from '@/components/app/KeyboardShortcutsModal'
 import MobilePriorityDock from '@/components/app/MobilePriorityDock'
 import SupabaseConfigGate from '@/components/app/SupabaseConfigGate'
+import AdibStatementSeedBridge from '@/components/app/AdibStatementSeedBridge'
 import { base44 } from '@/api/base44Client'
 
 const { Pages, Layout, mainPage } = pagesConfig
@@ -129,6 +130,7 @@ const AuthenticatedApp = () => {
   return (
     <>
       <RealtimeBridge />
+      <AdibStatementSeedBridge user={user} />
       <Routes>
         <Route path="/" element={user?.role === 'pending_client' ? <Navigate to={createPageUrl('ClientOnboarding')} replace /> : renderPage(fallbackPage, Pages[fallbackPage] || MainPage)} />
         <Route path={createPageUrl('ClientOnboarding')} element={<OnboardingRoute />} />

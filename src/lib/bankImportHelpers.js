@@ -23,37 +23,65 @@ function cleanText(value) {
   return String(value || '').replace(/\s+/g, ' ').trim()
 }
 
-export function normalizeExpenseForPortal(row = {}) {
+function money(value) {
+  return Number(value || 0).toFixed(2)
+}
+
+function simpleHash(value = '') {
+  let hash = 2166136261
+  const text = String(value || '')
+  for (let i = 0; i < text.length; i += 1) {
+    hash ^= text.charCodeAt(i)
+    hash = Math.imul(hash, 16777619)
+  }
+  return (hash >>> 0).toString(16).padStart(8, '0')
+}
+
+function buildBankIdentity(row = {}, type = 'bank') {
   const ref = cleanText(row.bank_reference || row.reference || '')
-  const desc = cleanText(row.bank_description || row.description || row.title || 'مصروف من كشف البنك')
+  const date = String(row.expense_date || row.income_date || row.date || '').slice(0, 10)
+  const amount = Number(row.amount || row.debit || row.credit || 0)
+  const desc = cleanText(row.bank_description || row.description || row.title || '')
+  const explicit = cleanText(row.bank_transaction_id || row.transaction_id || row.id || '')
+  const key = explicit || simpleHash(`${type}|${date}|${money(amount)}|${ref}|${desc}`)
+  return { key, ref, date, amount, desc, marker: `[BANK-TXN:${key}]` }
+}
+
+function extractBankMarker(notes = '') {
+  return String(notes || '').match(/\[BANK-TXN:([^\]]+)\]/)?.[1] || String(notes || '').match(/\[ADIB-TXN:([^\]]+)\]/)?.[1] || ''
+}
+
+export function normalizeExpenseForPortal(row = {}) {
+  const bank = buildBankIdentity(row, 'expense')
   const notes = cleanText(row.notes || '')
+  const baseNotes = notes || `استيراد كشف بنك ADIB${bank.ref ? ` - مرجع: ${bank.ref}` : ''}`
   return {
-    title: cleanText(row.title || desc).slice(0, 250),
-    amount: Number(row.amount || row.debit || 0),
+    title: cleanText(row.title || bank.desc || 'مصروف من كشف البنك').slice(0, 250),
+    amount: bank.amount,
     category: EXPENSE_CATEGORIES.has(row.category) ? row.category : 'أخرى',
-    expense_date: row.expense_date || row.date || new Date().toISOString().slice(0, 10),
+    expense_date: bank.date || new Date().toISOString().slice(0, 10),
     case_title: row.case_title || '',
     client_name: row.client_name || '',
     payment_method: row.payment_method || 'بطاقة/تحويل بنكي',
-    notes: notes || `استيراد كشف بنك ADIB${ref ? ` - مرجع: ${ref}` : ''}`,
+    notes: baseNotes.includes(bank.marker) ? baseNotes : `${bank.marker} ${baseNotes}`,
     is_billable: Boolean(row.is_billable),
     status: row.status || 'مدفوع',
   }
 }
 
 export function normalizeIncomeForPortal(row = {}) {
-  const ref = cleanText(row.bank_reference || row.reference || '')
-  const desc = cleanText(row.bank_description || row.description || row.title || 'دخل من كشف البنك')
+  const bank = buildBankIdentity(row, 'income')
+  const baseNotes = cleanText(row.notes || `استيراد كشف بنك ADIB${bank.ref ? ` - مرجع: ${bank.ref}` : ''}`)
   return {
-    id: row.id || `income-${Date.now()}-${Math.random().toString(16).slice(2)}`,
-    title: cleanText(row.title || desc).slice(0, 250),
-    amount: Number(row.amount || row.credit || 0),
+    id: row.id || `bank-income-${bank.key}`,
+    title: cleanText(row.title || bank.desc || 'دخل من كشف البنك').slice(0, 250),
+    amount: bank.amount,
     category: row.category || 'دخل آخر',
-    income_date: row.income_date || row.date || new Date().toISOString().slice(0, 10),
+    income_date: bank.date || new Date().toISOString().slice(0, 10),
     source: row.source || 'تحويل/إيداع بنكي',
-    notes: cleanText(row.notes || `استيراد كشف بنك ADIB${ref ? ` - مرجع: ${ref}` : ''}`),
+    notes: baseNotes.includes(bank.marker) ? baseNotes : `${bank.marker} ${baseNotes}`,
     status: row.status || 'محصل',
-    bank_reference: ref,
+    bank_reference: bank.ref,
     created_date: row.created_date || new Date().toISOString(),
     updated_date: new Date().toISOString(),
   }
@@ -84,29 +112,67 @@ export async function loadIncomeTransactions() {
 
 export async function importExpensesToPortal(expenses = []) {
   const rows = expenses.map(normalizeExpenseForPortal).filter((e) => e.amount > 0 && e.title)
-  if (!rows.length) return { imported: 0, source: 'none' }
+  if (!rows.length) return { imported: 0, skipped: 0, source: 'none' }
   try {
-    const created = await base44.entities.Expense.bulkCreate(rows)
-    return { imported: created?.length || rows.length, source: 'supabase' }
+    const existing = await base44.entities.Expense.list('-created_date', 5000)
+    const existingKeys = new Set((existing || []).map((row) => extractBankMarker(row.notes)).filter(Boolean))
+    const fresh = rows.filter((row) => {
+      const key = extractBankMarker(row.notes)
+      if (!key || existingKeys.has(key)) return !key
+      existingKeys.add(key)
+      return true
+    })
+    if (!fresh.length) return { imported: 0, skipped: rows.length, source: 'supabase' }
+    const created = await base44.entities.Expense.bulkCreate(fresh)
+    return { imported: created?.length || fresh.length, skipped: rows.length - fresh.length, source: 'supabase' }
   } catch (error) {
     const old = JSON.parse(localStorage.getItem('helm_expenses_local_fallback_v2') || '[]')
-    const merged = [...rows.map((r, i) => ({ ...r, id: `expense-bank-${Date.now()}-${i}`, created_date: new Date().toISOString(), updated_date: new Date().toISOString() })), ...(Array.isArray(old) ? old : [])]
+    const oldRows = Array.isArray(old) ? old : []
+    const existingKeys = new Set(oldRows.map((row) => extractBankMarker(row.notes)).filter(Boolean))
+    const fresh = rows.filter((row) => {
+      const key = extractBankMarker(row.notes)
+      if (!key || existingKeys.has(key)) return !key
+      existingKeys.add(key)
+      return true
+    })
+    const merged = [...fresh.map((r, i) => ({ ...r, id: `expense-bank-${Date.now()}-${i}`, created_date: new Date().toISOString(), updated_date: new Date().toISOString() })), ...oldRows]
     localStorage.setItem('helm_expenses_local_fallback_v2', JSON.stringify(merged))
-    return { imported: rows.length, source: 'local', error: error?.message || String(error) }
+    return { imported: fresh.length, skipped: rows.length - fresh.length, source: 'local', error: error?.message || String(error) }
   }
 }
 
 export async function importIncomeToPortal(income = []) {
   const rows = income.map(normalizeIncomeForPortal).filter((e) => e.amount > 0 && e.title)
-  if (!rows.length) return { imported: 0, source: 'none' }
+  if (!rows.length) return { imported: 0, skipped: 0, source: 'none' }
   try {
-    const { data, error } = await supabase.from('income_transactions').insert(rows).select()
+    const { data: existing, error: existingError } = await supabase.from('income_transactions').select('id,notes').limit(5000)
+    if (existingError) throw existingError
+    const existingIds = new Set((existing || []).map((row) => String(row.id || '')))
+    const existingKeys = new Set((existing || []).map((row) => extractBankMarker(row.notes)).filter(Boolean))
+    const fresh = rows.filter((row) => {
+      const key = extractBankMarker(row.notes)
+      if (existingIds.has(String(row.id || '')) || (key && existingKeys.has(key))) return false
+      existingIds.add(String(row.id || ''))
+      if (key) existingKeys.add(key)
+      return true
+    })
+    if (!fresh.length) return { imported: 0, skipped: rows.length, source: 'supabase' }
+    const { data, error } = await supabase.from('income_transactions').insert(fresh).select()
     if (error) throw error
-    return { imported: data?.length || rows.length, source: 'supabase' }
+    return { imported: data?.length || fresh.length, skipped: rows.length - fresh.length, source: 'supabase' }
   } catch (error) {
     const old = readLocalIncome()
-    writeLocalIncome([...rows, ...old])
-    return { imported: rows.length, source: 'local', error: error?.message || String(error) }
+    const existingIds = new Set(old.map((row) => String(row.id || '')))
+    const existingKeys = new Set(old.map((row) => extractBankMarker(row.notes)).filter(Boolean))
+    const fresh = rows.filter((row) => {
+      const key = extractBankMarker(row.notes)
+      if (existingIds.has(String(row.id || '')) || (key && existingKeys.has(key))) return false
+      existingIds.add(String(row.id || ''))
+      if (key) existingKeys.add(key)
+      return true
+    })
+    writeLocalIncome([...fresh, ...old])
+    return { imported: fresh.length, skipped: rows.length - fresh.length, source: 'local', error: error?.message || String(error) }
   }
 }
 
