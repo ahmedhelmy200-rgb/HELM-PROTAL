@@ -1,6 +1,12 @@
 {
   "framework": "vite",
   "rewrites": [
+    { "source": "/legal-services-uae", "destination": "/seo/legal-services-uae.html" },
+    { "source": "/legal-consultation-uae", "destination": "/seo/legal-consultation-uae.html" },
+    { "source": "/civil-commercial-disputes-uae", "destination": "/seo/civil-commercial-disputes-uae.html" },
+    { "source": "/execution-uae", "destination": "/seo/execution-uae.html" },
+    { "source": "/labour-law-uae", "destination": "/seo/labour-law-uae.html" },
+    { "source": "/contracts-uae", "destination": "/seo/contracts-uae.html" },
     { "source": "/(.*)", "destination": "/" }
   ],
   "headers": [
