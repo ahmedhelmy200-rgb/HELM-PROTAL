@@ -1,0 +1,62 @@
+name: IndexNow SEO Notify
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'public/sitemap.xml'
+      - 'public/robots.txt'
+      - 'public/seo/**'
+      - 'public/82e9397d6d87bd44eea9b52b1b65e445.txt'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for hosting deployment
+        run: sleep 90
+      - name: Submit public URLs to IndexNow
+        shell: bash
+        run: |
+          cat > payload.json <<'JSON'
+          {
+            "host": "helm-protal.vercel.app",
+            "key": "82e9397d6d87bd44eea9b52b1b65e445",
+            "keyLocation": "https://helm-protal.vercel.app/82e9397d6d87bd44eea9b52b1b65e445.txt",
+            "urlList": [
+              "https://helm-protal.vercel.app/",
+              "https://helm-protal.vercel.app/legal-services-uae",
+              "https://helm-protal.vercel.app/legal-consultation-uae",
+              "https://helm-protal.vercel.app/civil-commercial-disputes-uae",
+              "https://helm-protal.vercel.app/execution-uae",
+              "https://helm-protal.vercel.app/labour-law-uae",
+              "https://helm-protal.vercel.app/contracts-uae",
+              "https://helm-protal.vercel.app/PublicLegalLibrary",
+              "https://helm-protal.vercel.app/uae-legal-guides",
+              "https://helm-protal.vercel.app/travel-ban-debt-uae",
+              "https://helm-protal.vercel.app/payment-order-uae",
+              "https://helm-protal.vercel.app/judgment-execution-uae",
+              "https://helm-protal.vercel.app/foreign-judgments-uae",
+              "https://helm-protal.vercel.app/civil-appeal-uae",
+              "https://helm-protal.vercel.app/electronic-evidence-uae",
+              "https://helm-protal.vercel.app/electronic-signature-uae",
+              "https://helm-protal.vercel.app/cheque-execution-uae",
+              "https://helm-protal.vercel.app/labour-dispute-uae",
+              "https://helm-protal.vercel.app/end-of-service-benefits-uae",
+              "https://helm-protal.vercel.app/contract-enforcement-uae",
+              "https://helm-protal.vercel.app/contract-termination-damages-uae",
+              "https://helm-protal.vercel.app/arbitration-uae-guide",
+              "https://helm-protal.vercel.app/commercial-companies-uae-guide",
+              "https://helm-protal.vercel.app/mediation-conciliation-uae"
+            ]
+          }
+          JSON
+          curl --fail-with-body --retry 3 --retry-delay 10 \
+            -H 'Content-Type: application/json; charset=utf-8' \
+            -X POST 'https://api.indexnow.org/indexnow' \
+            --data-binary @payload.json
