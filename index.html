@@ -25,6 +25,7 @@
     <meta name="description" content="HELM Legal - أحمد حلمي للاستشارات القانونية في دولة الإمارات. استشارات قانونية في المنازعات المدنية والتجارية، التنفيذ، قانون العمل، العقود والخدمات القانونية للأفراد والشركات." />
     <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
     <meta name="googlebot" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+    <meta name="bingbot" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
     <meta name="author" content="أحمد حلمي للاستشارات القانونية" />
     <meta name="application-name" content="HELM Legal" />
     <meta name="apple-mobile-web-app-title" content="HELM Legal" />
@@ -60,27 +61,43 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "LegalService",
-        "@id": "https://helm-protal.vercel.app/#legalservice",
-        "name": "أحمد حلمي للاستشارات القانونية",
-        "alternateName": "HELM Legal",
-        "url": "https://helm-protal.vercel.app/",
-        "logo": "https://helm-protal.vercel.app/icon-512.png",
-        "image": "https://helm-protal.vercel.app/icon-512.png",
-        "description": "خدمات واستشارات قانونية في دولة الإمارات للأفراد والشركات في المجالات المدنية والتجارية والتنفيذ والعمل والعقود.",
-        "areaServed": {
-          "@type": "Country",
-          "name": "United Arab Emirates"
-        },
-        "availableLanguage": ["ar", "en"],
-        "knowsAbout": [
-          "القانون الإماراتي",
-          "الاستشارات القانونية",
-          "المنازعات المدنية",
-          "المنازعات التجارية",
-          "التنفيذ",
-          "قانون العمل الإماراتي",
-          "صياغة العقود"
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://helm-protal.vercel.app/#website",
+            "url": "https://helm-protal.vercel.app/",
+            "name": "HELM Legal",
+            "alternateName": "أحمد حلمي للاستشارات القانونية",
+            "inLanguage": "ar-AE",
+            "publisher": { "@id": "https://helm-protal.vercel.app/#legalservice" }
+          },
+          {
+            "@type": "LegalService",
+            "@id": "https://helm-protal.vercel.app/#legalservice",
+            "name": "أحمد حلمي للاستشارات القانونية",
+            "alternateName": ["HELM Legal", "Ahmed Helmy Legal Consultancy"],
+            "url": "https://helm-protal.vercel.app/",
+            "logo": "https://helm-protal.vercel.app/icon-512.png",
+            "image": "https://helm-protal.vercel.app/icon-512.png",
+            "description": "خدمات واستشارات قانونية في دولة الإمارات للأفراد والشركات في المجالات المدنية والتجارية والتنفيذ والعمل والعقود.",
+            "areaServed": { "@type": "Country", "name": "United Arab Emirates" },
+            "availableLanguage": ["ar", "en"],
+            "knowsAbout": [
+              "القانون الإماراتي",
+              "الاستشارات القانونية",
+              "المنازعات المدنية",
+              "المنازعات التجارية",
+              "تنفيذ الأحكام",
+              "أمر الأداء",
+              "منع السفر بسبب الدين",
+              "قانون العمل الإماراتي",
+              "العقود",
+              "الإثبات الإلكتروني",
+              "التحكيم",
+              "الوساطة والتوفيق",
+              "قانون الشركات التجارية"
+            ]
+          }
         ]
       }
     </script>
@@ -98,6 +115,7 @@
           <a href="/execution-uae">التنفيذ والأحكام</a>
           <a href="/labour-law-uae">قانون العمل الإماراتي</a>
           <a href="/contracts-uae">صياغة ومراجعة العقود</a>
+          <a href="/uae-legal-guides">دليل القانون الإماراتي</a>
           <a href="/PublicLegalLibrary">المكتبة القانونية العامة</a>
         </nav>
       </main>
