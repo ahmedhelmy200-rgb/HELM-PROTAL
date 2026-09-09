@@ -16,6 +16,9 @@ Website: https://helm-protal.vercel.app/
 - https://helm-protal.vercel.app/international-debt-recovery — International debt and claims coordination
 - https://helm-protal.vercel.app/international-commercial-disputes — International commercial disputes
 - https://helm-protal.vercel.app/foreign-judgment-recognition — Foreign judgments and cross-border recognition files
+- https://helm-protal.vercel.app/international-power-of-attorney — International powers of attorney
+- https://helm-protal.vercel.app/document-attestation-cross-border — Cross-border document translation and attestation
+- https://helm-protal.vercel.app/cross-border-inheritance-estates — Cross-border inheritance and estate file organization
 
 ## Egypt priority hub
 - https://helm-protal.vercel.app/legal-consultant-egypt — Egypt-related legal matters
