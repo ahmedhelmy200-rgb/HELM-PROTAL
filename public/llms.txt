@@ -19,6 +19,11 @@ Website: https://helm-protal.vercel.app/
 - https://helm-protal.vercel.app/international-power-of-attorney — International powers of attorney
 - https://helm-protal.vercel.app/document-attestation-cross-border — Cross-border document translation and attestation
 - https://helm-protal.vercel.app/cross-border-inheritance-estates — Cross-border inheritance and estate file organization
+- https://helm-protal.vercel.app/international-arbitration — International arbitration files
+- https://helm-protal.vercel.app/cross-border-shareholder-company-disputes — Cross-border shareholder and company disputes
+- https://helm-protal.vercel.app/international-real-estate-property — International real estate and property matters
+- https://helm-protal.vercel.app/cross-border-family-personal-status — Cross-border family and personal status matters
+- https://helm-protal.vercel.app/cross-border-employment — Cross-border employment matters
 
 ## Egypt priority hub
 - https://helm-protal.vercel.app/legal-consultant-egypt — Egypt-related legal matters
