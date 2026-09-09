@@ -7,11 +7,19 @@ Additional scope: GCC, Middle East and international cross-border file coordinat
 Languages: Arabic and English.
 Website: https://helm-protal.vercel.app/
 
-## High-priority UAE deportation and mercy-request guides
-- https://helm-protal.vercel.app/deportation-uae-guide — UAE judicial vs administrative deportation guide
+## High-priority UAE deportation, entry-ban and mercy-request guides
+- https://helm-protal.vercel.app/deportation-uae-guide — Main UAE deportation and mercy-request hub
 - https://helm-protal.vercel.app/judicial-deportation-uae — Judicial deportation and cancellation-request guide
 - https://helm-protal.vercel.app/administrative-deportation-uae — Administrative deportation and removal-request guide
-- https://helm-protal.vercel.app/deportation-mercy-request-egypt-uae — Arabic guide for Egyptians in Egypt seeking to organize a UAE deportation mercy/cancellation request
+- https://helm-protal.vercel.app/deportation-mercy-request-egypt-uae — Guide for Egyptians in Egypt organizing a UAE deportation mercy/cancellation request
+- https://helm-protal.vercel.app/mercy-request-uae-criminal-case — UAE criminal-case mercy request guide
+- https://helm-protal.vercel.app/entry-ban-vs-deportation-uae — Difference between deportation, entry ban and related restrictions
+- https://helm-protal.vercel.app/return-to-uae-after-deportation — Return to the UAE after deportation
+- https://helm-protal.vercel.app/deportation-after-sentence-uae — Deportation after completion of criminal sentence
+- https://helm-protal.vercel.app/deportation-request-documents-uae — Documents checklist for deportation/mercy requests
+- https://helm-protal.vercel.app/cancel-deportation-abu-dhabi — Abu Dhabi judicial deportation cancellation service guide
+- https://helm-protal.vercel.app/deportation-mercy-request-dubai — Dubai deportation mercy-request guide
+- https://helm-protal.vercel.app/deportation-authority-uae — How to identify the competent UAE authority for a deportation request
 
 ## Global and international hubs
 - https://helm-protal.vercel.app/global-legal-services — Global cross-border legal services hub
