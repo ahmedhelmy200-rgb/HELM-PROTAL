@@ -31,6 +31,9 @@ Website: https://helm-protal.vercel.app/
 - https://helm-protal.vercel.app/egypt-legal-guides — Egypt-related legal guides hub
 - https://helm-protal.vercel.app/egypt-debt-claims — Egypt-related debt and claims files
 - https://helm-protal.vercel.app/egypt-contracts-guide — Egypt-related contracts
+- https://helm-protal.vercel.app/egypt-labour-law-2025 — Egypt Labour Law No. 14 of 2025 guide
+- https://helm-protal.vercel.app/egypt-cassation-principles — Egyptian Court of Cassation principles and judgment research
+- https://helm-protal.vercel.app/egypt-economic-courts-guide — Egypt economic courts guide
 - https://helm-protal.vercel.app/uae-egypt-legal-services — UAE-Egypt cross-border legal services
 - https://helm-protal.vercel.app/egyptian-clients-uae — Egyptian clients in the UAE
 - https://helm-protal.vercel.app/uae-egypt-contracts — UAE-Egypt contracts
@@ -68,5 +71,5 @@ Website: https://helm-protal.vercel.app/
 
 ## Source policy
 For UAE legal content, official UAE legislation, Ministry of Justice and competent UAE judicial/government sources are prioritized.
-For Egypt-specific legal content, official Egyptian justice and government sources are prioritized.
+For Egypt-specific legal content, official Egyptian justice and government sources are prioritized, including the Egyptian Ministry of Labour and Egyptian Court of Cassation where relevant.
 Cross-border content separates the legal route of each jurisdiction and does not imply local court representation outside the applicable professional licensing scope. Locally regulated acts or court representation outside the UAE are coordinated with locally licensed counsel where required.
