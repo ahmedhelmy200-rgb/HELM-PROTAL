@@ -7,6 +7,17 @@ Additional scope: GCC, Middle East and international cross-border file coordinat
 Languages: Arabic and English.
 Website: https://helm-protal.vercel.app/
 
+## UAE criminal procedure and post-judgment guides
+- https://helm-protal.vercel.app/uae-criminal-guides — Main UAE criminal legal guides hub
+- https://helm-protal.vercel.app/bail-provisional-release-uae — Bail and provisional release in UAE criminal cases
+- https://helm-protal.vercel.app/criminal-appeal-uae — UAE criminal appeal guide
+- https://helm-protal.vercel.app/rehabilitation-uae — Rehabilitation under Federal Law No. 5 of 2022
+- https://helm-protal.vercel.app/seized-items-return-uae — Return of seized property in criminal cases
+- https://helm-protal.vercel.app/criminal-pardon-uae — Criminal pardon and distinction from appeal and rehabilitation
+- https://helm-protal.vercel.app/criminal-case-status-uae — Official criminal case/report status inquiry guidance
+- https://helm-protal.vercel.app/criminal-travel-ban-uae — Travel ban associated with criminal proceedings
+- https://helm-protal.vercel.app/egypt-uae-criminal-case-help — Guide for Egyptians in Egypt organizing a UAE criminal case or judgment file
+
 ## High-priority UAE deportation, entry-ban and mercy-request guides
 - https://helm-protal.vercel.app/deportation-uae-guide — Main UAE deportation and mercy-request hub
 - https://helm-protal.vercel.app/judicial-deportation-uae — Judicial deportation and cancellation-request guide
