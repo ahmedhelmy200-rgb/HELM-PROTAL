@@ -1,45 +1,63 @@
 # HELM Legal — أحمد حلمي للاستشارات القانونية
 
-Official public legal information website for Ahmed Helmy Legal Consultancy in the United Arab Emirates.
-Primary language: Arabic (UAE). Public brand: HELM Legal.
+Official public legal information and legal consultancy website for HELM Legal / Ahmed Helmy Legal Consultancy.
+Primary base: United Arab Emirates.
+Priority international corridor: Egypt and UAE-Egypt cross-border matters.
+Additional scope: GCC, Middle East and international cross-border file coordination.
+Languages: Arabic and English.
 Website: https://helm-protal.vercel.app/
 
-## Core public pages
+## Global and international hubs
+- https://helm-protal.vercel.app/global-legal-services — Global cross-border legal services hub
+- https://helm-protal.vercel.app/international-legal-services — International legal services
+- https://helm-protal.vercel.app/gcc-legal-coordination — GCC cross-border legal coordination
+- https://helm-protal.vercel.app/middle-east-legal-services — Middle East cross-border matters
+- https://helm-protal.vercel.app/international-contracts — International contracts
+- https://helm-protal.vercel.app/international-debt-recovery — International debt and claims coordination
+- https://helm-protal.vercel.app/international-commercial-disputes — International commercial disputes
+- https://helm-protal.vercel.app/foreign-judgment-recognition — Foreign judgments and cross-border recognition files
+
+## Egypt priority hub
+- https://helm-protal.vercel.app/legal-consultant-egypt — Egypt-related legal matters
+- https://helm-protal.vercel.app/egypt-legal-guides — Egypt-related legal guides hub
+- https://helm-protal.vercel.app/egypt-debt-claims — Egypt-related debt and claims files
+- https://helm-protal.vercel.app/egypt-contracts-guide — Egypt-related contracts
+- https://helm-protal.vercel.app/uae-egypt-legal-services — UAE-Egypt cross-border legal services
+- https://helm-protal.vercel.app/egyptian-clients-uae — Egyptian clients in the UAE
+- https://helm-protal.vercel.app/uae-egypt-contracts — UAE-Egypt contracts
+- https://helm-protal.vercel.app/uae-egypt-cross-border-disputes — UAE-Egypt cross-border disputes
+- https://helm-protal.vercel.app/uae-egypt-judgments — UAE-Egypt judgments and court files
+- https://helm-protal.vercel.app/egypt-uae-business-legal — Egypt-UAE business legal matters
+
+## UAE core public pages
 - https://helm-protal.vercel.app/legal-services-uae — Legal services in the UAE
 - https://helm-protal.vercel.app/legal-consultation-uae — Legal consultation in the UAE
 - https://helm-protal.vercel.app/civil-commercial-disputes-uae — Civil and commercial disputes
-- https://helm-protal.vercel.app/execution-uae — Judgment enforcement and execution
+- https://helm-protal.vercel.app/execution-uae — Judgment enforcement and execution-related matters
 - https://helm-protal.vercel.app/labour-law-uae — UAE labour law services
 - https://helm-protal.vercel.app/contracts-uae — Contract drafting and review
 - https://helm-protal.vercel.app/uae-legal-guides — UAE legal guides hub
 - https://helm-protal.vercel.app/legal-consultant-uae-locations — UAE service-area hub
 
 ## UAE service areas
-- https://helm-protal.vercel.app/legal-consultant-dubai — Legal consultation for clients in Dubai
-- https://helm-protal.vercel.app/legal-consultant-abu-dhabi — Legal consultation for clients in Abu Dhabi
-- https://helm-protal.vercel.app/legal-consultant-sharjah — Legal consultation for clients in Sharjah
-- https://helm-protal.vercel.app/legal-consultant-ajman — Legal consultation for clients in Ajman
-- https://helm-protal.vercel.app/legal-consultant-al-ain — Legal consultation for clients in Al Ain
-- https://helm-protal.vercel.app/legal-consultant-ras-al-khaimah — Legal consultation for clients in Ras Al Khaimah
-- https://helm-protal.vercel.app/legal-consultant-fujairah — Legal consultation for clients in Fujairah
-- https://helm-protal.vercel.app/legal-consultant-umm-al-quwain — Legal consultation for clients in Umm Al Quwain
+- https://helm-protal.vercel.app/legal-consultant-dubai
+- https://helm-protal.vercel.app/legal-consultant-abu-dhabi
+- https://helm-protal.vercel.app/legal-consultant-sharjah
+- https://helm-protal.vercel.app/legal-consultant-ajman
+- https://helm-protal.vercel.app/legal-consultant-al-ain
+- https://helm-protal.vercel.app/legal-consultant-ras-al-khaimah
+- https://helm-protal.vercel.app/legal-consultant-fujairah
+- https://helm-protal.vercel.app/legal-consultant-umm-al-quwain
 
-## UAE legal guides
-- https://helm-protal.vercel.app/travel-ban-debt-uae
-- https://helm-protal.vercel.app/payment-order-uae
-- https://helm-protal.vercel.app/judgment-execution-uae
-- https://helm-protal.vercel.app/foreign-judgments-uae
-- https://helm-protal.vercel.app/civil-appeal-uae
-- https://helm-protal.vercel.app/electronic-evidence-uae
-- https://helm-protal.vercel.app/electronic-signature-uae
-- https://helm-protal.vercel.app/cheque-execution-uae
-- https://helm-protal.vercel.app/labour-dispute-uae
-- https://helm-protal.vercel.app/end-of-service-benefits-uae
-- https://helm-protal.vercel.app/contract-enforcement-uae
-- https://helm-protal.vercel.app/contract-termination-damages-uae
-- https://helm-protal.vercel.app/arbitration-uae-guide
-- https://helm-protal.vercel.app/commercial-companies-uae-guide
-- https://helm-protal.vercel.app/mediation-conciliation-uae
+## English international pages
+- https://helm-protal.vercel.app/en — HELM Legal English home
+- https://helm-protal.vercel.app/en/uae-legal-services — UAE legal consultancy
+- https://helm-protal.vercel.app/en/egypt-legal-services — Egypt-related legal matters
+- https://helm-protal.vercel.app/en/international-legal-services — International legal consultancy
+- https://helm-protal.vercel.app/en/cross-border-contracts — Cross-border contract review
+- https://helm-protal.vercel.app/en/international-debt-recovery — International debt recovery and claims coordination
 
 ## Source policy
-Legal content prioritizes official UAE sources, especially UAE Legislation, the Ministry of Justice and competent UAE judicial/government authorities. Content is general legal information; individual matters require review of the facts, documents, dates and applicable jurisdiction.
+For UAE legal content, official UAE legislation, Ministry of Justice and competent UAE judicial/government sources are prioritized.
+For Egypt-specific legal content, official Egyptian justice and government sources are prioritized.
+Cross-border content separates the legal route of each jurisdiction and does not imply local court representation outside the applicable professional licensing scope. Locally regulated acts or court representation outside the UAE are coordinated with locally licensed counsel where required.
