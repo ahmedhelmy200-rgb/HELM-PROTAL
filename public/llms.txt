@@ -9,6 +9,7 @@ Website: https://helm-protal.vercel.app/
 
 ## Global and international hubs
 - https://helm-protal.vercel.app/global-legal-services — Global cross-border legal services hub
+- https://helm-protal.vercel.app/global-legal-topics — Global legal topics hub
 - https://helm-protal.vercel.app/international-legal-services — International legal services
 - https://helm-protal.vercel.app/gcc-legal-coordination — GCC cross-border legal coordination
 - https://helm-protal.vercel.app/middle-east-legal-services — Middle East cross-border matters
