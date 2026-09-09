@@ -62,6 +62,10 @@
     { "source": "/international-real-estate-property", "destination": "/seo/international-real-estate-property.html" },
     { "source": "/cross-border-family-personal-status", "destination": "/seo/cross-border-family-personal-status.html" },
     { "source": "/cross-border-employment", "destination": "/seo/cross-border-employment.html" },
+    { "source": "/deportation-uae-guide", "destination": "/seo/deportation-uae-guide.html" },
+    { "source": "/judicial-deportation-uae", "destination": "/seo/judicial-deportation-uae.html" },
+    { "source": "/administrative-deportation-uae", "destination": "/seo/administrative-deportation-uae.html" },
+    { "source": "/deportation-mercy-request-egypt-uae", "destination": "/seo/deportation-mercy-request-egypt-uae.html" },
     { "source": "/en", "destination": "/seo/en-home.html" },
     { "source": "/en/uae-legal-services", "destination": "/seo/en-uae-legal-services.html" },
     { "source": "/en/egypt-legal-services", "destination": "/seo/en-egypt-legal-services.html" },
@@ -71,20 +75,7 @@
     { "source": "/(.*)", "destination": "/" }
   ],
   "headers": [
-    {
-      "source": "/assets/(.*)",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
-      ]
-    },
-    {
-      "source": "/(.*)",
-      "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
-      ]
-    }
+    {"source":"/assets/(.*)","headers":[{"key":"Cache-Control","value":"public, max-age=31536000, immutable"}]},
+    {"source":"/(.*)","headers":[{"key":"X-Content-Type-Options","value":"nosniff"},{"key":"X-Frame-Options","value":"SAMEORIGIN"},{"key":"Referrer-Policy","value":"strict-origin-when-cross-origin"},{"key":"Permissions-Policy","value":"camera=(), microphone=(), geolocation=()"}]}
   ]
 }
