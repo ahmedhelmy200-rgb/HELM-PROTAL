@@ -7,6 +7,12 @@ Additional scope: GCC, Middle East and international cross-border file coordinat
 Languages: Arabic and English.
 Website: https://helm-protal.vercel.app/
 
+## High-priority UAE deportation and mercy-request guides
+- https://helm-protal.vercel.app/deportation-uae-guide — UAE judicial vs administrative deportation guide
+- https://helm-protal.vercel.app/judicial-deportation-uae — Judicial deportation and cancellation-request guide
+- https://helm-protal.vercel.app/administrative-deportation-uae — Administrative deportation and removal-request guide
+- https://helm-protal.vercel.app/deportation-mercy-request-egypt-uae — Arabic guide for Egyptians in Egypt seeking to organize a UAE deportation mercy/cancellation request
+
 ## Global and international hubs
 - https://helm-protal.vercel.app/global-legal-services — Global cross-border legal services hub
 - https://helm-protal.vercel.app/global-legal-topics — Global legal topics hub
