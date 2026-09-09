@@ -12,6 +12,17 @@ Website: https://helm-protal.vercel.app/
 - https://helm-protal.vercel.app/labour-law-uae — UAE labour law services
 - https://helm-protal.vercel.app/contracts-uae — Contract drafting and review
 - https://helm-protal.vercel.app/uae-legal-guides — UAE legal guides hub
+- https://helm-protal.vercel.app/legal-consultant-uae-locations — UAE service-area hub
+
+## UAE service areas
+- https://helm-protal.vercel.app/legal-consultant-dubai — Legal consultation for clients in Dubai
+- https://helm-protal.vercel.app/legal-consultant-abu-dhabi — Legal consultation for clients in Abu Dhabi
+- https://helm-protal.vercel.app/legal-consultant-sharjah — Legal consultation for clients in Sharjah
+- https://helm-protal.vercel.app/legal-consultant-ajman — Legal consultation for clients in Ajman
+- https://helm-protal.vercel.app/legal-consultant-al-ain — Legal consultation for clients in Al Ain
+- https://helm-protal.vercel.app/legal-consultant-ras-al-khaimah — Legal consultation for clients in Ras Al Khaimah
+- https://helm-protal.vercel.app/legal-consultant-fujairah — Legal consultation for clients in Fujairah
+- https://helm-protal.vercel.app/legal-consultant-umm-al-quwain — Legal consultation for clients in Umm Al Quwain
 
 ## UAE legal guides
 - https://helm-protal.vercel.app/travel-ban-debt-uae
