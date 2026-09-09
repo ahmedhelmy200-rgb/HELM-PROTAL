@@ -23,6 +23,15 @@
     { "source": "/arbitration-uae-guide", "destination": "/seo/arbitration-uae-guide.html" },
     { "source": "/commercial-companies-uae-guide", "destination": "/seo/commercial-companies-uae-guide.html" },
     { "source": "/mediation-conciliation-uae", "destination": "/seo/mediation-conciliation-uae.html" },
+    { "source": "/legal-consultant-uae-locations", "destination": "/seo/legal-consultant-uae-locations.html" },
+    { "source": "/legal-consultant-dubai", "destination": "/seo/legal-consultant-dubai.html" },
+    { "source": "/legal-consultant-abu-dhabi", "destination": "/seo/legal-consultant-abu-dhabi.html" },
+    { "source": "/legal-consultant-sharjah", "destination": "/seo/legal-consultant-sharjah.html" },
+    { "source": "/legal-consultant-ajman", "destination": "/seo/legal-consultant-ajman.html" },
+    { "source": "/legal-consultant-al-ain", "destination": "/seo/legal-consultant-al-ain.html" },
+    { "source": "/legal-consultant-ras-al-khaimah", "destination": "/seo/legal-consultant-ras-al-khaimah.html" },
+    { "source": "/legal-consultant-fujairah", "destination": "/seo/legal-consultant-fujairah.html" },
+    { "source": "/legal-consultant-umm-al-quwain", "destination": "/seo/legal-consultant-umm-al-quwain.html" },
     { "source": "/(.*)", "destination": "/" }
   ],
   "headers": [
