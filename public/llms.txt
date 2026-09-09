@@ -1,0 +1,34 @@
+# HELM Legal — أحمد حلمي للاستشارات القانونية
+
+Official public legal information website for Ahmed Helmy Legal Consultancy in the United Arab Emirates.
+Primary language: Arabic (UAE). Public brand: HELM Legal.
+Website: https://helm-protal.vercel.app/
+
+## Core public pages
+- https://helm-protal.vercel.app/legal-services-uae — Legal services in the UAE
+- https://helm-protal.vercel.app/legal-consultation-uae — Legal consultation in the UAE
+- https://helm-protal.vercel.app/civil-commercial-disputes-uae — Civil and commercial disputes
+- https://helm-protal.vercel.app/execution-uae — Judgment enforcement and execution
+- https://helm-protal.vercel.app/labour-law-uae — UAE labour law services
+- https://helm-protal.vercel.app/contracts-uae — Contract drafting and review
+- https://helm-protal.vercel.app/uae-legal-guides — UAE legal guides hub
+
+## UAE legal guides
+- https://helm-protal.vercel.app/travel-ban-debt-uae
+- https://helm-protal.vercel.app/payment-order-uae
+- https://helm-protal.vercel.app/judgment-execution-uae
+- https://helm-protal.vercel.app/foreign-judgments-uae
+- https://helm-protal.vercel.app/civil-appeal-uae
+- https://helm-protal.vercel.app/electronic-evidence-uae
+- https://helm-protal.vercel.app/electronic-signature-uae
+- https://helm-protal.vercel.app/cheque-execution-uae
+- https://helm-protal.vercel.app/labour-dispute-uae
+- https://helm-protal.vercel.app/end-of-service-benefits-uae
+- https://helm-protal.vercel.app/contract-enforcement-uae
+- https://helm-protal.vercel.app/contract-termination-damages-uae
+- https://helm-protal.vercel.app/arbitration-uae-guide
+- https://helm-protal.vercel.app/commercial-companies-uae-guide
+- https://helm-protal.vercel.app/mediation-conciliation-uae
+
+## Source policy
+Legal content prioritizes official UAE sources, especially UAE Legislation, the Ministry of Justice and competent UAE judicial/government authorities. Content is general legal information; individual matters require review of the facts, documents, dates and applicable jurisdiction.
