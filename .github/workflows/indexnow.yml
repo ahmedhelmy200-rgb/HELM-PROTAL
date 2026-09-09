@@ -52,7 +52,16 @@ jobs:
               "https://helm-protal.vercel.app/contract-termination-damages-uae",
               "https://helm-protal.vercel.app/arbitration-uae-guide",
               "https://helm-protal.vercel.app/commercial-companies-uae-guide",
-              "https://helm-protal.vercel.app/mediation-conciliation-uae"
+              "https://helm-protal.vercel.app/mediation-conciliation-uae",
+              "https://helm-protal.vercel.app/legal-consultant-uae-locations",
+              "https://helm-protal.vercel.app/legal-consultant-dubai",
+              "https://helm-protal.vercel.app/legal-consultant-abu-dhabi",
+              "https://helm-protal.vercel.app/legal-consultant-sharjah",
+              "https://helm-protal.vercel.app/legal-consultant-ajman",
+              "https://helm-protal.vercel.app/legal-consultant-al-ain",
+              "https://helm-protal.vercel.app/legal-consultant-ras-al-khaimah",
+              "https://helm-protal.vercel.app/legal-consultant-fujairah",
+              "https://helm-protal.vercel.app/legal-consultant-umm-al-quwain"
             ]
           }
           JSON
